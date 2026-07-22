@@ -19,6 +19,7 @@ public class GunFace : MonoBehaviour
     public int shotnumbul;
     public float Shotcoolstart;
     float shotcool = 5f;
+    public int shotAmmo;
 
 
 
@@ -31,6 +32,12 @@ public class GunFace : MonoBehaviour
     public int rifleAmmo = 6;
     public float rifleCool = 2f;
 
+    public int modularAmmo = 0;
+    public float modularCool = 1F;
+    float modularcoolreset;
+    public int modspread = 45;
+    public int modnumbul = 1;
+
     float diecool = 1f;
     public float maxdiecool;
 
@@ -39,14 +46,18 @@ public class GunFace : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        modularcoolreset = modularCool;
+        Shotcoolstart = shotcool;
     }
 
     public void setPammo(int Delta)
     {
         pistolAmmo += Delta;
     }
-
+    public void setMammo(int delta)
+    {
+        modularAmmo += delta;
+    }
     public void setRammo(int Delta)
     {
         rifleAmmo += Delta;
@@ -109,6 +120,7 @@ public class GunFace : MonoBehaviour
         pistolcool -= Time.deltaTime;
         rifleCool -= Time.deltaTime;
         stakecool -= Time.deltaTime;
+        modularCool -= Time.deltaTime;
         shotcool -= Time.deltaTime;
 
         if (Input.GetAxis("Fire1") != 0)
@@ -135,6 +147,7 @@ public class GunFace : MonoBehaviour
         if (collision.gameObject.CompareTag("Danger"))
         {
            //GameStateManager.Instance.OnDeath();
+           //GameTimeManger.addTimerTime(-100);
         }
     }
 
@@ -169,18 +182,42 @@ public class GunFace : MonoBehaviour
             }
 
 
+    else if (Weapon == "Modular")
+            {
+                if (modularCool <= 0f)
+                {
+                    if (modularAmmo > 0)
+                    {
+                        modularAmmo -= 1;
+                        
+                    for (int i = 0; i < modnumbul; i++)
+                    {
+                    
 
+                        Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), Quaternion.AngleAxis(i * 360 / 45, d));
+                        temp.transform.position = this.transform.position + transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
+
+                        //temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+
+                        temp.setDirection(Quaternion.AngleAxis(i * 360 / modspread, d)*Vector2.one);
+
+
+                    }
+                    modularCool = modularcoolreset;
+                    }   
+                }
+            }
         }
         else if (Weapon == "Shotgun")
         {
             if (shotcool <= 0f)
             {
 
-                if (rifleAmmo > 0)
+                if (shotAmmo > 0)
                 {
-                    rifleAmmo -= 1;
+                    shotAmmo -= 1;
 
-                    for (int i = 0; i < shotnumbul; i++)
+                    for (int i = 0; i < modnumbul; i++)
                     {
                     
 
