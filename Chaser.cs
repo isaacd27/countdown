@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Chaser : BasicEnemy
 {
-    public float time;
-    public int score;
-    public ScoreManager sm;
-    public GameTimeManager gtm;
+    //public float time;
+    //public int score;
+    //public ScoreManager sm;
+    //public GameTimeManager gtm;
 
    // public int hp = 1;
     // Start is called before the first frame update
