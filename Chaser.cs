@@ -13,7 +13,9 @@ public class Chaser : BasicEnemy
     // Start is called before the first frame update
     void Start()
     {
-
+        gtm = GameObject.Find("TimerManager").GetComponent<GameTimeManager>();
+        sm = GameObject.Find("scoremanager").GetComponent<ScoreManager>();
+        
     }
 
     // Update is called once per frame

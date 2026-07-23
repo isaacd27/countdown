@@ -16,6 +16,13 @@ public class EnemySpawner : MonoBehaviour
     public ScoreManager SM;
     public GameTimeManager GTM;
 
+    [SerializeField]
+    private float minTime;
+
+    [SerializeField]
+    private float maxTime;
+
+private float timeTilSpawn;
     public int maxenemies;
     public int initenemies;
     float score;
@@ -26,9 +33,12 @@ public class EnemySpawner : MonoBehaviour
         numenemies -=1;
     }
     // Start is called before the first frame update
-    void Start()
+    //
+    void Awake()
     {
-    if (initenemies > maxenemies)
+
+        SetTimeTilSpawn();
+    /* if (initenemies > maxenemies)
         {
             Debug.LogError("Inital enemies is greater than maxmimum enemies");
         }
@@ -51,22 +61,33 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogError("Max enemies set to 0, please change the value.");
             }
            
-        }
+
+
+
+        */
     }
 
     // Update is called once per frame
     void Update()
     {
+        timeTilSpawn -= Time.deltaTime; //
         score = SM.getscore();
         if (score == 0)
         {
-            for (int i = 0;i > initenemies; i++)
-            {
-                int rand = Random.Range(0,2); //detemines which type of enemy to spawn
-                //TODO: enemy spawning
-                numenemies += 1;
-            }
-
+         
+            if(timeTilSpawn <= 0)
+                    {
+                        int rand = Random.Range(0,2); //detemines which type of enemy to spawn
+                        if (rand == 1)
+                        {
+                            Instantiate(Spawnthis,transform.position,quaternion.identity);
+                            SetTimeTilSpawn();
+                        }
+                        else
+                        {
+                         Instantiate(Spawnthis2,transform.position,quaternion.identity);
+                         SetTimeTilSpawn();   
+                        }
         }
         else
         {
@@ -74,15 +95,33 @@ public class EnemySpawner : MonoBehaviour
             {
                 if (numenemies <= maxenemies)
                 {
-                    for (int i = 0;i > initenemies + score/100; i++)
-                {
-                    int rand = Random.Range(0,2); //detemines which type of enemy to spawn
+                   if(timeTilSpawn <= 0)
+                    {
+                        int rand = Random.Range(0,2); //detemines which type of enemy to spawn
+                        if (rand == 1)
+                        {
+                            Instantiate(Spawnthis,transform.position,quaternion.identity);
+                            SetTimeTilSpawn();
+                        }
+                        else
+                        {
+                            Instantiate(Spawnthis2,transform.position,quaternion.identity);
+                            SetTimeTilSpawn();  
+                        }
+                    }
+                    
                     //TODO: enemy spawning
                     //note: ensure enemies do not overlap player somehow
-                    numenemies += 1;
-                }
+                   // numenemies += 1;
+                
                 }
             }
         }
+        }
+    }
+
+    private void SetTimeTilSpawn()
+    {
+        timeTilSpawn = Random.Range(minTime,maxTime);
     }
 }
