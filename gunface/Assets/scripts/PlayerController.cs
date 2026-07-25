@@ -18,9 +18,9 @@ public class PlayerController : MonoBehaviour
 
  
     // Start is called before the first frame update
-     void Awake()
+    void Awake()
     {
-                anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
 
 
         Wspeed = Animator.StringToHash("walkingspeed");
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
         if(movement != Vector3.zero)
         {
-        anim.SetInteger(Wspeed,1);
+            anim.SetInteger(Wspeed,1);
         }
         else
         {
@@ -65,13 +65,13 @@ public class PlayerController : MonoBehaviour
         if (!gtm.gettimerended())
         {
             if (speeduptimer > 0)
-        {
-                    transform.position += movement * Time.deltaTime * (moveSpeed *speedupfactor);
+            {
+                transform.position += movement * Time.deltaTime * (moveSpeed *speedupfactor);
 
-        }
+            }
             else
             {
-            transform.position += movement * Time.deltaTime * moveSpeed;
+                transform.position += movement * Time.deltaTime * moveSpeed;
 
             }
 
