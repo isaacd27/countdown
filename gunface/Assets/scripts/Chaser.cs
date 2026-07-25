@@ -15,6 +15,8 @@ public class Chaser : BasicEnemy
     {
         gtm = GameObject.Find("TimerManager").GetComponent<GameTimeManager>();
         sm = GameObject.Find("scoremanager").GetComponent<ScoreManager>();
+                Player = GameObject.Find("Player");
+
         
     }
 
