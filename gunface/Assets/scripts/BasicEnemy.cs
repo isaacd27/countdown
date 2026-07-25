@@ -14,15 +14,16 @@ public class BasicEnemy : MonoBehaviour
 
     public ScoreManager sm;
     public GameTimeManager gtm;
-
+    
     public int score;
     // Start is called before the first frame update
+
+   
     void Start()
     {
          //todo: make sure score and GT managers are set in start, for instanition
         gtm = GameObject.Find("TimerManager").GetComponent<GameTimeManager>();
         sm = GameObject.Find("scoremanager").GetComponent<ScoreManager>();
-        
     }
 
     // Update is called once per frame

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,6 +44,21 @@ public class GunFace : MonoBehaviour
 
     public string secondary;
     public string primary;
+
+    int PEquip, SEquip, REquip, attack;
+    Animator anim;
+
+
+void Awake()
+    {
+         anim = GetComponent<Animator>();
+
+        PEquip = Animator.StringToHash("pistolequip");
+        SEquip = Animator.StringToHash("shotequip");
+        REquip = Animator.StringToHash("rifleequip");
+        attack = Animator.StringToHash("attacking");
+    }
+     
     // Start is called before the first frame update
     void Start()
     {
@@ -108,12 +124,45 @@ public class GunFace : MonoBehaviour
              Mouseposition.y - transform.position.y
              );
 
+        if(shotcool <= 0)
+        {
+            anim.SetBool(attack, false);
 
+        }
         transform.up = Direction;
 
 
+        switch (Weapon)
+        {
+            case "Stake":
+                anim.SetBool(PEquip, false);
+                anim.SetBool(REquip, false);
+                anim.SetBool(SEquip,false);
+                
+            break;
 
+            case "Pistol":
+                anim.SetBool(PEquip, true);
+                anim.SetBool(REquip, false);
+                anim.SetBool(SEquip,false);
+                
+            break;
 
+            case "Rifle":
+                anim.SetBool(PEquip, false);
+                anim.SetBool(REquip, true);
+                anim.SetBool(SEquip,false);
+                
+                break;
+
+                case "Shotgun":
+                anim.SetBool(PEquip, false);
+                anim.SetBool(REquip, false);
+                anim.SetBool(SEquip,true);
+                
+                break;
+        }
+    
 
 
 
@@ -244,6 +293,7 @@ public class GunFace : MonoBehaviour
         {
             if(stakecool <= 0)
             {
+                anim.SetBool(attack,true);
                 Stake temp = Instantiate(staPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
 
                 temp.transform.position = this.transform.position + transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
