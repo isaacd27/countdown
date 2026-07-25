@@ -8,8 +8,23 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed = 5f;
     public GameTimeManager gtm;
+
+    Animator anim;
+
+    int Wspeed;
+
  
     // Start is called before the first frame update
+     void Awake()
+    {
+                anim = GetComponent<Animator>();
+
+
+        Wspeed = Animator.StringToHash("walkingspeed");
+
+       ;
+
+    }
     void Start()
     {
         
@@ -19,6 +34,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f);
+
+        if(movement != Vector3.zero)
+        {
+        anim.SetInteger(Wspeed,1);
+        }
+        else
+        {
+            anim.SetInteger(Wspeed,0);
+
+        }
 
         // Debug.Log(IsGrounded());
 
