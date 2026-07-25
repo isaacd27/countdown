@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      //  transform.Translate(Vector2.up * Time.deltaTime * speed);
+       transform.Translate(Vector2.up * Time.deltaTime * speed);
     }
 
     public void setDirection(Vector2 dir)
@@ -54,6 +54,20 @@ public class Projectile : MonoBehaviour
         // {
 
         //}
+    }
+
+     private void OnTriggerEnter2D(Collider2D collision)
+    {
+                   if (collision.gameObject.CompareTag("Danger"))
+        {
+            BasicEnemy be = collision.gameObject.GetComponent<BasicEnemy>();
+            if (be != null)
+            {
+                be.kill();
+                Destroy(this.gameObject);
+            }
+        }
+
     }
 
     void onShoot()
