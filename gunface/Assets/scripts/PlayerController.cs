@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public GameTimeManager gtm;
 
+    float speeduptimer;
+    public float speedupfactor;
+
     Animator anim;
 
     int Wspeed;
@@ -22,8 +25,13 @@ public class PlayerController : MonoBehaviour
 
         Wspeed = Animator.StringToHash("walkingspeed");
 
-       ;
+       
 
+    }
+
+    public void SetSpeedTimer(float time)
+    {
+        speeduptimer = time;
     }
     void Start()
     {
@@ -33,7 +41,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f);
+
+        speeduptimer -= Time.deltaTime;
 
         if(movement != Vector3.zero)
         {
@@ -53,7 +64,16 @@ public class PlayerController : MonoBehaviour
         //  }
         if (!gtm.gettimerended())
         {
-        transform.position += movement * Time.deltaTime * moveSpeed;
+            if (speeduptimer > 0)
+        {
+                    transform.position += movement * Time.deltaTime * (moveSpeed *speedupfactor);
+
+        }
+            else
+            {
+            transform.position += movement * Time.deltaTime * moveSpeed;
+
+            }
 
         }
     }

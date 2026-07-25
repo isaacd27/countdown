@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -16,6 +17,10 @@ public class BasicEnemy : MonoBehaviour
     public GameTimeManager gtm;
     
     public int score;
+
+    public GameObject Pdrop, PAdrop, RDrop,RAdrop, SDrop, SADrop, speeddrop, timedrop; 
+    //refers to the drops an enemy can have
+
     // Start is called before the first frame update
 
    
@@ -68,6 +73,49 @@ public class BasicEnemy : MonoBehaviour
                 //temp = GameObject.Instantiate(coinprefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
                 sm.addScore(score);
                 gtm.addTimerTime(time);
+                //copy this code to chaser
+                int rand = UnityEngine.Random.Range(0,9);
+                switch (rand)
+                {
+                    case 0:
+                    GameObject.Instantiate(Pdrop,this.transform.position,quaternion.identity);
+                    break;
+                    case 1:
+                    GameObject.Instantiate(PAdrop,this.transform.position,quaternion.identity);
+
+                    break;
+                    case 2:
+                    GameObject.Instantiate(RDrop,this.transform.position,quaternion.identity);
+
+                    break;
+
+                    case 3:
+                    GameObject.Instantiate(RAdrop,this.transform.position,quaternion.identity);
+
+                    break;
+
+                    case 4:
+                    GameObject.Instantiate(SDrop,this.transform.position,quaternion.identity);
+                    break;
+
+                    case 5:
+                    GameObject.Instantiate(SADrop,this.transform.position,quaternion.identity);
+
+                    break;
+
+                    case 6:
+                    GameObject.Instantiate(speeddrop,this.transform.position,quaternion.identity);
+
+                    break;
+
+                    case 7:
+                    GameObject.Instantiate(timedrop,this.transform.position,quaternion.identity);
+
+                    break;
+
+                    //you get the idea
+                }
+
                 Destroy(this.gameObject);
             }
           

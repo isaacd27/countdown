@@ -58,6 +58,48 @@ public class Chaser : BasicEnemy
         {
             sm.addScore(score);
             gtm.addTimerTime(time);
+            int rand = UnityEngine.Random.Range(0,9);
+                switch (rand)
+                {
+                    case 0:
+                    GameObject.Instantiate(Pdrop,this.transform.position,Quaternion.identity);
+                    break;
+                    case 1:
+                    GameObject.Instantiate(PAdrop,this.transform.position,Quaternion.identity);
+
+                    break;
+                    case 2:
+                    GameObject.Instantiate(RDrop,this.transform.position,Quaternion.identity);
+
+                    break;
+
+                    case 3:
+                    GameObject.Instantiate(RAdrop,this.transform.position,Quaternion.identity);
+
+                    break;
+
+                    case 4:
+                    GameObject.Instantiate(SDrop,this.transform.position,Quaternion.identity);
+                    break;
+
+                    case 5:
+                    GameObject.Instantiate(SADrop,this.transform.position,Quaternion.identity);
+
+                    break;
+
+                    case 6:
+                    GameObject.Instantiate(speeddrop,this.transform.position,Quaternion.identity);
+
+                    break;
+
+                    case 7:
+                    GameObject.Instantiate(timedrop,this.transform.position,Quaternion.identity);
+
+                    break;
+
+                    //you get the idea
+                }
+
             Destroy(this.gameObject);
         }
             

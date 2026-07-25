@@ -78,6 +78,16 @@ void Awake()
     {
         rifleAmmo += Delta;
     }
+    public void setSammo(int Delta){
+        shotAmmo += Delta;
+    }
+
+    public void setALLammo(int Delta){
+        pistolAmmo += Delta;
+        modularAmmo += Delta;
+        rifleAmmo += Delta;
+        shotAmmo += Delta;
+    }
 
   
     public void SetCanUseShotgun()
@@ -94,6 +104,7 @@ void Awake()
 
     public void SetWeapon(String weapon)
     {
+        //sseconadry = Weapon //enable to automagically set the secondary to the previous weapon
         Weapon = weapon;
         primary = weapon;
         //playerMain.PlayerSwapAimNormal.SetWeapon(weapon);
