@@ -49,10 +49,12 @@ public class PlayerController : MonoBehaviour
         if(movement != Vector3.zero)
         {
         anim.SetInteger(Wspeed,1);
+        anim.SetFloat(Wspeed,1);
         }
         else
         {
             anim.SetInteger(Wspeed,0);
+            anim.SetFloat(Wspeed,0);
 
         }
 
