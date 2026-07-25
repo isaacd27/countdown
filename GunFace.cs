@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GunFace : MonoBehaviour
 {
-    public Projectile projPrefab;
-    public Stake staPrefab;
+    public GameObject projPrefab;
+    public GameObject staPrefab;
 
 
 
@@ -228,16 +228,17 @@ void Awake()
 
                 if (pistolAmmo > 0)
                 {
+                    pistolcool = 1f;
+
                     pistolAmmo -= 1;
 
-                    Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
+                    GameObject temp =GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
 
                     temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
                    // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
 
-                    temp.setDirection(d);
-                    pistolcool = 1f;
+                    temp.GetComponent<Projectile>().setDirection(d);
                 }
             }
 
@@ -248,22 +249,23 @@ void Awake()
                 {
                     if (modularAmmo > 0)
                     {
+                                            modularCool = modularcoolreset;
+
                         modularAmmo -= 1;
                         
                     for (int i = 0; i < modnumbul; i++)
                     {
                     
 
-                        Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), Quaternion.AngleAxis(i * 360 / 45, d));
+                        GameObject temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), Quaternion.AngleAxis(i * 360 / 45, d));
                         temp.transform.position = this.transform.position + transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
 
                         //temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
-                        temp.setDirection(Quaternion.AngleAxis(i * 360 / modspread, d)*Vector2.one);
+                        temp.GetComponent<Projectile>().setDirection(Quaternion.AngleAxis(i * 360 / modspread, d)*Vector2.one);
 
 
                     }
-                    modularCool = modularcoolreset;
                     }   
                 }
             }
@@ -275,18 +277,20 @@ void Awake()
 
                 if (shotAmmo > 0)
                 {
+                    shotcool = Shotcoolstart;
+
                     shotAmmo -= 1;
 
                     for (int i = 0; i < modnumbul; i++)
                     {
                     
 
-                        Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), Quaternion.AngleAxis(i * 360 / 45, d));
+                        GameObject temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), Quaternion.AngleAxis(i * 360 / 45, d));
                         temp.transform.position = this.transform.position + transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
 
                         //temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
-                        temp.setDirection(Quaternion.AngleAxis(i * 360 / 45, d)*Vector2.one);
+                        temp.GetComponent<Projectile>().setDirection(Quaternion.AngleAxis(i * 360 / 45, d)*Vector2.one);
 
 
                     }
@@ -296,7 +300,6 @@ void Awake()
 
 
                   
-                    shotcool = Shotcoolstart;
                 }
             }
         }
@@ -305,12 +308,12 @@ void Awake()
             if(stakecool <= 0)
             {
                 anim.SetBool(attack,true);
-                Stake temp = Instantiate(staPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
+                GameObject temp = Instantiate(staPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
 
                 temp.transform.position = this.transform.position + transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
                 temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
-                temp.setDirection(d);
+                    temp.GetComponent<Stake>().setDirection(d);
                 stakecool = 0.5f;
             }
 
@@ -319,16 +322,23 @@ void Awake()
         {
             if(rifleCool <= 0f)
             {
-            
-                    // Debug.Log("ran ");
-                    Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
+                if(rifleAmmo > 0)
+                {
+                    rifleCool = 0.5f;
+
+                     GameObject temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
 
                     temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
                     // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
-                    temp.setDirection(d);
+                    temp.GetComponent<Projectile>().setDirection(d);
 
-                rifleCool = 0.5f;
+                    rifleAmmo -= 1;
+
+                }
+                    // Debug.Log("ran ");
+                   
+
                 
             }
         
