@@ -29,6 +29,7 @@ public class BasicEnemy : MonoBehaviour
          //todo: make sure score and GT managers are set in start, for instanition
         gtm = GameObject.Find("TimerManager").GetComponent<GameTimeManager>();
         sm = GameObject.Find("scoremanager").GetComponent<ScoreManager>();
+        Player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
