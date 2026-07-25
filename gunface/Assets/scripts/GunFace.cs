@@ -228,6 +228,8 @@ void Awake()
 
                 if (pistolAmmo > 0)
                 {
+                    pistolcool = 1f;
+
                     pistolAmmo -= 1;
 
                     GameObject temp =GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
@@ -237,7 +239,6 @@ void Awake()
 
 
                     temp.GetComponent<Projectile>().setDirection(d);
-                    pistolcool = 1f;
                 }
             }
 
@@ -248,6 +249,8 @@ void Awake()
                 {
                     if (modularAmmo > 0)
                     {
+                                            modularCool = modularcoolreset;
+
                         modularAmmo -= 1;
                         
                     for (int i = 0; i < modnumbul; i++)
@@ -263,7 +266,6 @@ void Awake()
 
 
                     }
-                    modularCool = modularcoolreset;
                     }   
                 }
             }
@@ -275,6 +277,8 @@ void Awake()
 
                 if (shotAmmo > 0)
                 {
+                    shotcool = Shotcoolstart;
+
                     shotAmmo -= 1;
 
                     for (int i = 0; i < modnumbul; i++)
@@ -296,7 +300,6 @@ void Awake()
 
 
                   
-                    shotcool = Shotcoolstart;
                 }
             }
         }
@@ -319,16 +322,23 @@ void Awake()
         {
             if(rifleCool <= 0f)
             {
-            
-                    // Debug.Log("ran ");
-                    GameObject temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
+                if(rifleAmmo > 0)
+                {
+                    rifleCool = 0.5f;
+
+                     GameObject temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
 
                     temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
                     // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
                     temp.GetComponent<Projectile>().setDirection(d);
 
-                rifleCool = 0.5f;
+                    rifleAmmo -= 1;
+
+                }
+                    // Debug.Log("ran ");
+                   
+
                 
             }
         
