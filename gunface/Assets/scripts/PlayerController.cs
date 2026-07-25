@@ -64,12 +64,14 @@ public class PlayerController : MonoBehaviour
         //  }
         if (!gtm.gettimerended())
         {
-            if (speeduptimer > 0)
-            {
-                transform.position += movement * Time.deltaTime * (moveSpeed *speedupfactor);
+			
+            if (speeduptimer < 0){
+                    transform.position += movement * Time.deltaTime * (moveSpeed *speedupfactor);
+            Debug.Log("sped up");
 
+        
             }
-            else
+			else
             {
                 transform.position += movement * Time.deltaTime * moveSpeed;
 
@@ -78,6 +80,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+
+
 
 
     
