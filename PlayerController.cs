@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -16,18 +17,17 @@ public class PlayerController : MonoBehaviour
 
     int Wspeed;
 
+    public GameObject Resumemenu, paussemenu;
     bool paused;
-
-    public GameObject Pausemenu,ResumeMebu;
 
  
     // Start is called before the first frame update
-     void Awake()
+    void Awake()
     {
-                anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
 
 
-        Wspeed = Animator.StringToHash("walkingspeed");
+        //Wspeed = Animator.StringToHash("walkingspeed");
 
        
 
@@ -42,57 +42,60 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    public void Puase()
+    {
+        paused = !paused;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        if (paused)
+        {
+            Resumemenu.SetActive(false);
+            paussemenu.SetActive(true);
+        }else{
+            Resumemenu.SetActive(true);
+            paussemenu.SetActive(false);
+        }
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f);
 
         speeduptimer -= Time.deltaTime;
 
-        if(movement != Vector3.zero)
+        if (movement != Vector3.zero)
         {
-        anim.SetInteger(Wspeed,1);
-        anim.SetFloat(Wspeed,1);
+            //anim.SetInteger(Wspeed,1);
+			//anim.SetFloat(Wspeed,1);
+            anim.speed = 1;
         }
         else
         {
-            anim.SetInteger(Wspeed,0);
-            anim.SetFloat(Wspeed,0);
+            //anim.SetInteger(Wspeed,0);
+            //anim.SetFloat(Wspeed,0);
+            anim.speed = 0;
 
         }
+
 
         gtm.ispaused(paused);
-
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            if (paused){
-                ResumeMebu.SetActive(true);
-                Pausemenu.SetActive(false);
-            }
-            else
-            {
-                ResumeMebu.SetActive(false);
-                Pausemenu.SetActive(true);
-            }
-        }
-
         // Debug.Log(IsGrounded());
 
         // if (tilemap.ContainsTile(tilemap.name("Player")))
         // {
 
         //  }
-
         if (!gtm.gettimerended() && !paused)
         {
-            if (speeduptimer > 0){
+			
+            if (speeduptimer < 0){
                     transform.position += movement * Time.deltaTime * (moveSpeed *speedupfactor);
             Debug.Log("sped up");
 
         
-            }else
+            }
+			else
             {
-            transform.position += movement * Time.deltaTime * moveSpeed;
+                transform.position += movement * Time.deltaTime * moveSpeed;
 
             }
 

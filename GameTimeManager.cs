@@ -11,9 +11,7 @@ public class GameTimeManager : MonoBehaviour
     public float timer = 300000;
     public float timerDecreaseRate = 1;
     public TMP_Text TimerText;
-    
-    bool paused;
-    // Start is called before the first frame 
+    bool paused;// Start is called before the first frame 
     
     public float gettimertime()
     {
@@ -31,9 +29,9 @@ public class GameTimeManager : MonoBehaviour
         timer += t;
     }
 
-    public void ispaused(bool p)
+    public void ispaused(bool pa)
     {
-        paused = p;
+        paused = pa;
     }
     void Start()
     {
@@ -45,7 +43,7 @@ public class GameTimeManager : MonoBehaviour
     {
         if (!paused)
         {
-                    timer -= timerDecreaseRate*Time.deltaTime;
+            timer -= timerDecreaseRate*Time.deltaTime;
 
         }
 
