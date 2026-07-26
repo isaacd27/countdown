@@ -62,7 +62,7 @@ public class Chaser : BasicEnemy
 
         if(hp <= 0)
         {
-            if (this.gameObject.CompareTag("Danger"))
+            if (collision.gameObject.CompareTag("Projectile") && gameObject.CompareTag("Danger"))
             {
                 Destroy(this.gameObject);
             }

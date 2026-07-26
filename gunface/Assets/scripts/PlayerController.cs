@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed = 5f;
     public GameTimeManager gtm;
+    //RigidBody2D rb;
 
     float speeduptimer;
     public float speedupfactor;
@@ -84,6 +85,8 @@ public class PlayerController : MonoBehaviour
         {
             //anim.SetInteger(Wspeed,0);
             //anim.SetFloat(Wspeed,0);
+            //rb.velocity = Vector3.zero;
+            //rb.angularVelocity = Vector3.zero;
             anim.speed = 0;
 
         }
