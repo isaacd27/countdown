@@ -104,18 +104,18 @@ MonoBehaviour:
   Player: {fileID: 0}
   speed: 1
   hp: 1
-  time: 400
+  time: 1
   sm: {fileID: 0}
   gtm: {fileID: 0}
-  score: 200
-  Pdrop: {fileID: 0}
-  PAdrop: {fileID: 0}
-  RDrop: {fileID: 0}
-  RAdrop: {fileID: 0}
-  SDrop: {fileID: 0}
-  SADrop: {fileID: 0}
-  speeddrop: {fileID: 0}
-  timedrop: {fileID: 0}
+  score: 300
+  Pdrop: {fileID: 6250964003721044540, guid: 445088da4aa854849814b2bce4511567, type: 3}
+  PAdrop: {fileID: 7619643076055092324, guid: 6561f36f011bd4448900ea1ca1f3f780, type: 3}
+  RDrop: {fileID: 4807858720117232977, guid: 74a15b8a7a4007b408a71eb71ab87f2c, type: 3}
+  RAdrop: {fileID: 6055888519919945355, guid: b298c1ffeae656c4a9879fd1b9b3d909, type: 3}
+  SDrop: {fileID: 8943464097885708124, guid: e350ff10a05ce614080f434420bc608d, type: 3}
+  SADrop: {fileID: 3513960291962717697, guid: 1e7a6db280850b048909373c07eb6331, type: 3}
+  speeddrop: {fileID: 7527677401117284176, guid: ce363d98c31d8bb47a0d64950ba51390, type: 3}
+  timedrop: {fileID: 2069357625190824915, guid: 42bb99a88a76cf7498a5be7283d38467, type: 3}
 --- !u!61 &6348400144635021219
 BoxCollider2D:
   m_ObjectHideFlags: 0
