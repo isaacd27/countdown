@@ -6,7 +6,7 @@ public class ScoreManager : MonoBehaviour
 {
 // TODO: FINAL score text?
 
-    public TMP_Text scoretext;
+    public TMP_Text scoretext,FINALSCORETEXT;
     float score;
     //should we make scoremanager not destory on load?
     public void addScore(int delta)
@@ -28,5 +28,6 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         scoretext.text = score.ToString("00000");
+        FINALSCORETEXT.text = score.ToString("00000");
     }
 }

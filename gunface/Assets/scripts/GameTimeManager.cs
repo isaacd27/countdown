@@ -9,8 +9,10 @@ public class GameTimeManager : MonoBehaviour
 {
     bool timerend = false;
     public float timer = 300000;
+    public float timespent = 0;
     public float timerDecreaseRate = 1;
     public TMP_Text TimerText;
+    public TMP_Text TimerTextFinal;
     bool paused;// Start is called before the first frame 
     public GameObject endmenu;
     
@@ -45,7 +47,7 @@ public class GameTimeManager : MonoBehaviour
         if (!paused)
         {
             timer -= timerDecreaseRate*Time.deltaTime;
-
+            timespent += timerDecreaseRate*Time.deltaTime;
         }
 
         if(timerDecreaseRate <= 0)
@@ -56,6 +58,7 @@ public class GameTimeManager : MonoBehaviour
         else
         {
             TimerText.text = timer.ToString();
+            TimerTextFinal.text = timespent.ToString();
         }
 
         if (timer <= 0)
