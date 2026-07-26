@@ -18,8 +18,6 @@ public class UIbehaviour : MonoBehaviour
             resumeMenu.SetActive(true);
         }
     }
-
-    #region MainMenu
     public void Play()
     {
         //loads the scene numbered 1 in the build settings.
@@ -27,6 +25,7 @@ public class UIbehaviour : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    #region MainMenu
     public void Quit()
     {
         // does the same thing as QuitScript.QuitGame();

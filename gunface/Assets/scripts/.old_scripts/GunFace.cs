@@ -1,0 +1,352 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GunFace : MonoBehaviour
+{
+    public GameObject projPrefab;
+    public GameObject staPrefab;
+
+
+
+ 
+
+
+   // private PlayerMain playerMain;
+    public string Weapon = "Stake";
+    public float stakecool = 0.5f;
+    
+    public int shotnumbul;
+    public float Shotcoolstart;
+    float shotcool = 5f;
+    public int shotAmmo;
+
+
+
+    private bool canUseShotgun;
+    private bool canUseRifle = true;
+
+    public int pistolAmmo = 10;
+    public float pistolcool = 1f;
+
+    public int rifleAmmo = 6;
+    public float rifleCool = 2f;
+
+    public int modularAmmo = 0;
+    public float modularCool = 1F;
+    float modularcoolreset;
+    public int modspread = 45;
+    public int modnumbul = 1;
+
+    float diecool = 1f;
+    public float maxdiecool;
+
+    public string secondary;
+    public string primary;
+
+    int PEquip, SEquip, REquip, attack;
+    Animator anim;
+
+
+void Awake()
+    {
+         anim = GetComponent<Animator>();
+
+        PEquip = Animator.StringToHash("pistolequip");
+        SEquip = Animator.StringToHash("shotequip");
+        REquip = Animator.StringToHash("rifleequip");
+        attack = Animator.StringToHash("attacking");
+    }
+     
+    // Start is called before the first frame update
+    void Start()
+    {
+        modularcoolreset = modularCool;
+        Shotcoolstart = shotcool;
+    }
+
+    public void setPammo(int Delta)
+    {
+        pistolAmmo += Delta;
+    }
+    public void setMammo(int delta)
+    {
+        modularAmmo += delta;
+    }
+    public void setRammo(int Delta)
+    {
+        rifleAmmo += Delta;
+    }
+    public void setSammo(int Delta){
+        shotAmmo += Delta;
+    }
+
+    public void setALLammo(int Delta){
+        pistolAmmo += Delta;
+        modularAmmo += Delta;
+        rifleAmmo += Delta;
+        shotAmmo += Delta;
+    }
+
+  
+    public void SetCanUseShotgun()
+    {
+        canUseShotgun = true;
+        //SetWeapon(weaponShotgun);
+    }
+
+    public void SetCanUseRifle()
+    {
+        canUseRifle = true;
+        //SetWeapon(weaponRifle);
+    }
+
+    public void SetWeapon(String weapon)
+    {
+        //sseconadry = Weapon //enable to automagically set the secondary to the previous weapon
+        Weapon = weapon;
+        primary = weapon;
+        //playerMain.PlayerSwapAimNormal.SetWeapon(weapon);
+        // OnWeaponChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void SetSecondary(String weapon)
+    {
+        secondary = weapon;
+    }
+
+
+    public String GetWeapon()
+    {
+    return Weapon;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Grendaes = GameStateManager.Instance.getBombs();
+        Vector3 Mouseposition = Input.mousePosition;
+
+        Mouseposition = Camera.main.ScreenToWorldPoint(Mouseposition);
+
+        Vector2 Direction = new Vector2(
+            Mouseposition.x - transform.position.x,
+             Mouseposition.y - transform.position.y
+             );
+
+        if(shotcool <= 0)
+        {
+            anim.SetBool(attack, false);
+
+        }
+        transform.up = Direction;
+
+
+        switch (Weapon)
+        {
+            case "Stake":
+                anim.SetBool(PEquip, false);
+                anim.SetBool(REquip, false);
+                anim.SetBool(SEquip,false);
+                
+            break;
+
+            case "Pistol":
+                anim.SetBool(PEquip, true);
+                anim.SetBool(REquip, false);
+                anim.SetBool(SEquip,false);
+                
+            break;
+
+            case "Rifle":
+                anim.SetBool(PEquip, false);
+                anim.SetBool(REquip, true);
+                anim.SetBool(SEquip,false);
+                
+                break;
+
+                case "Shotgun":
+                anim.SetBool(PEquip, false);
+                anim.SetBool(REquip, false);
+                anim.SetBool(SEquip,true);
+                
+                break;
+        }
+    
+
+
+
+        pistolcool -= Time.deltaTime;
+        rifleCool -= Time.deltaTime;
+        stakecool -= Time.deltaTime;
+        modularCool -= Time.deltaTime;
+        shotcool -= Time.deltaTime;
+
+        if (Input.GetAxis("Fire1") != 0)
+        {
+            //  if(Weapon == "Stake" || Weapon == "Grenade")
+            //  {
+            //  Weapon = "Pistol";
+            //  }
+            onShoot(Direction);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Weapon = primary;
+        }else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Weapon = secondary;
+        }
+
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Danger"))
+        {
+           //GameStateManager.Instance.OnDeath();
+           //GameTimeManger.addTimerTime(-100);
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Danger"))
+        {
+            Debug.Log("hit");
+        }
+    }
+
+    public void onShoot(Vector2 d)
+    {
+        if (Weapon == "Pistol")
+        {
+            if (pistolcool <= 0f)
+            {
+
+                if (pistolAmmo > 0)
+                {
+                    pistolcool = 1f;
+
+                    pistolAmmo -= 1;
+
+                    GameObject temp =GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
+
+                    temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
+                   // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+
+
+                    temp.GetComponent<Projectile>().setDirection(d);
+                }
+            }
+
+
+    else if (Weapon == "Modular")
+            {
+                if (modularCool <= 0f)
+                {
+                    if (modularAmmo > 0)
+                    {
+                                            modularCool = modularcoolreset;
+
+                        modularAmmo -= 1;
+                        
+                    for (int i = 0; i < modnumbul; i++)
+                    {
+                    
+
+                        GameObject temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), Quaternion.AngleAxis(i * 360 / 45, d));
+                        temp.transform.position = this.transform.position + transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
+
+                        //temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+
+                        temp.GetComponent<Projectile>().setDirection(Quaternion.AngleAxis(i * 360 / modspread, d)*Vector2.one);
+
+
+                    }
+                    }   
+                }
+            }
+        }
+        else if (Weapon == "Shotgun")
+        {
+            if (shotcool <= 0f)
+            {
+
+                if (shotAmmo > 0)
+                {
+                    shotcool = Shotcoolstart;
+
+                    shotAmmo -= 1;
+
+                    for (int i = 0; i < modnumbul; i++)
+                    {
+                    
+
+                        GameObject temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), Quaternion.AngleAxis(i * 360 / 45, d));
+                        temp.transform.position = this.transform.position + transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
+
+                        //temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+
+                        temp.GetComponent<Projectile>().setDirection(Quaternion.AngleAxis(i * 360 / 45, d)*Vector2.one);
+
+
+                    }
+
+
+
+
+
+                  
+                }
+            }
+        }
+        else if (Weapon == "Stake")
+        {
+            if(stakecool <= 0)
+            {
+                stakecool = 0.5f;
+                anim.SetBool(attack,true);
+                GameObject temp = Instantiate(staPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
+
+                temp.transform.position = this.transform.position + transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
+                temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+
+                    temp.GetComponent<Projectile>().setDirection(d);
+            }
+
+        }
+        else if (Weapon == "Rifle")
+        {
+            if(rifleCool <= 0f)
+            {
+                if(rifleAmmo > 0)
+                {
+                    rifleCool = 0.5f;
+
+                    rifleAmmo -= 1;
+
+                    GameObject temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
+
+                    temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
+                    // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+
+                    temp.GetComponent<Projectile>().setDirection(d);
+
+                }
+                    // Debug.Log("ran ");
+                   
+
+                
+            }
+        
+
+        }else if (Weapon == "Die")
+        {
+
+        
+    }
+}
+}

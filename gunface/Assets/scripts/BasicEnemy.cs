@@ -48,6 +48,8 @@ public class BasicEnemy : MonoBehaviour
 
     protected virtual void Movement()
     {
+        //transform.LookAt(Player);
+
         if (this.transform.position.x > Player.transform.position.x)
         {
             //transform.localScale = new Vector3((float)-1.943782, transform.localScale.y);
