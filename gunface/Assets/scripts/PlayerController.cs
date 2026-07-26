@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+ 
 
     public float moveSpeed = 5f;
-    public int health = 10;
     public GameTimeManager gtm;
 
     float speeduptimer;
@@ -21,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public GameObject Resumemenu, paussemenu;
     bool paused;
 
-
+ 
     // Start is called before the first frame update
     void Awake()
     {
@@ -30,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
         //Wspeed = Animator.StringToHash("walkingspeed");
 
-
+       
 
     }
 
@@ -40,7 +39,7 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
-
+        
     }
 
     public void Puase()
@@ -55,12 +54,22 @@ public class PlayerController : MonoBehaviour
         {
             Resumemenu.SetActive(false);
             paussemenu.SetActive(true);
-        }
-        else
-        {
+        }else{
             Resumemenu.SetActive(true);
             paussemenu.SetActive(false);
         }
+
+        if (gtm.gettimerended())
+        {
+        Resumemenu.SetActive(false);
+        paussemenu.SetActive(false);    
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !gtm.gettimerended()){
+            Puase();
+        }
+        
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f);
 
         speeduptimer -= Time.deltaTime;
@@ -68,7 +77,7 @@ public class PlayerController : MonoBehaviour
         if (movement != Vector3.zero)
         {
             //anim.SetInteger(Wspeed,1);
-            //anim.SetFloat(Wspeed,1);
+			//anim.SetFloat(Wspeed,1);
             anim.speed = 1;
         }
         else
@@ -89,33 +98,19 @@ public class PlayerController : MonoBehaviour
         //  }
         if (!gtm.gettimerended() && !paused)
         {
+			
+            if (speeduptimer < 0){
+                    transform.position += movement * Time.deltaTime * (moveSpeed *speedupfactor);
+            Debug.Log("sped up");
 
-            if (speeduptimer < 0)
-            {
-                transform.position += movement * Time.deltaTime * (moveSpeed * speedupfactor);
-                //Debug.Log("sped up");
-
-
+        
             }
-            else
+			else
             {
                 transform.position += movement * Time.deltaTime * moveSpeed;
 
             }
 
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Danger")
-        {
-            health -= 1;
-        }
-
-        if(health <= 0)
-        {
-            Destroy(this.gameObject);
         }
     }
 }
