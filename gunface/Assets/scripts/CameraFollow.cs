@@ -32,9 +32,11 @@ public class CameraFollow : MonoBehaviour
           {
               transform.Rotate(Vector3.up, Time.deltaTime * -180);
           }*/
-
-        transform.position = player.transform.position + transform.forward * xDistance;
-        transform.Translate(Vector3.up * yDistance);
+        if (player)
+        {
+            transform.position = player.transform.position + transform.forward * xDistance;
+            transform.Translate(Vector3.up * yDistance);
+        }
     }
 }
 

@@ -35,7 +35,10 @@ public class BasicEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        if (Player)
+        {
+            Movement();
+        }
 
         //if (hp <= 0)
         //{
@@ -143,7 +146,7 @@ public class BasicEnemy : MonoBehaviour
         //        //temp = GameObject.Instantiate(coinprefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
 
         // this feels a lil dangerous if it happens first..
-        if (this.gameObject.CompareTag("Danger"))
+        if (collision.gameObject.CompareTag("Projectile"))
         {
             Destroy(this.gameObject);
         }

@@ -23,7 +23,10 @@ public class Chaser : BasicEnemy
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        if (Player)
+        {
+            Movement();
+        }
     }
 
     protected override void Movement()
