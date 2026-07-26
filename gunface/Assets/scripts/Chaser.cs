@@ -56,55 +56,60 @@ public class Chaser : BasicEnemy
     {
         if (collision.gameObject.CompareTag("Projectile"))
             hp -= 1;
-                if(hp <= 0)
+
+        if(hp <= 0)
         {
+            if (this.gameObject.CompareTag("Danger"))
+            {
+                Destroy(this.gameObject);
+            }
+
             sm.addScore(score);
             gtm.addTimerTime(time);
             int rand = UnityEngine.Random.Range(0,9);
-                switch (rand)
-                {
-                    case 0:
-                    GameObject.Instantiate(Pdrop,this.transform.position,Quaternion.identity);
+
+            switch (rand)
+            {
+                case 0:
+                    GameObject.Instantiate(Pdrop, this.transform.position, Quaternion.identity);
                     break;
-                    case 1:
-                    GameObject.Instantiate(PAdrop,this.transform.position,Quaternion.identity);
+                case 1:
+                    GameObject.Instantiate(PAdrop, this.transform.position, Quaternion.identity);
 
                     break;
-                    case 2:
-                    GameObject.Instantiate(RDrop,this.transform.position,Quaternion.identity);
-
-                    break;
-
-                    case 3:
-                    GameObject.Instantiate(RAdrop,this.transform.position,Quaternion.identity);
+                case 2:
+                    GameObject.Instantiate(RDrop, this.transform.position, Quaternion.identity);
 
                     break;
 
-                    case 4:
-                    GameObject.Instantiate(SDrop,this.transform.position,Quaternion.identity);
-                    break;
-
-                    case 5:
-                    GameObject.Instantiate(SADrop,this.transform.position,Quaternion.identity);
+                case 3:
+                    GameObject.Instantiate(RAdrop, this.transform.position, Quaternion.identity);
 
                     break;
 
-                    case 6:
-                    GameObject.Instantiate(speeddrop,this.transform.position,Quaternion.identity);
+                case 4:
+                    GameObject.Instantiate(SDrop, this.transform.position, Quaternion.identity);
+                    break;
+
+                case 5:
+                    GameObject.Instantiate(SADrop, this.transform.position, Quaternion.identity);
 
                     break;
 
-                    case 7:
-                    GameObject.Instantiate(timedrop,this.transform.position,Quaternion.identity);
+                case 6:
+                    GameObject.Instantiate(speeddrop, this.transform.position, Quaternion.identity);
+
+                    break;
+
+                case 7:
+                    GameObject.Instantiate(timedrop, this.transform.position, Quaternion.identity);
 
                     break;
 
                     //you get the idea
-                }
-
-            Destroy(this.gameObject);
+            }
         }
-            
+
     }
 }
 

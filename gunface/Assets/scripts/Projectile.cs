@@ -56,6 +56,20 @@ public class Projectile : MonoBehaviour
         //}
     }
 
+     private void OnTriggerEnter2D(Collider2D collision)
+    {
+                   if (collision.gameObject.CompareTag("Danger"))
+        {
+            BasicEnemy be = collision.gameObject.GetComponent<BasicEnemy>();
+            if (be != null)
+            {
+                be.kill();
+                Destroy(this.gameObject);
+            }
+        }
+
+    }
+
     void onShoot()
     {
 

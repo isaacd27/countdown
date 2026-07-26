@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -15,6 +16,9 @@ public class PlayerController : MonoBehaviour
     Animator anim;
 
     int Wspeed;
+
+    public GameObject Resumemenu, paussemenu;
+    bool paused;
 
  
     // Start is called before the first frame update
@@ -38,10 +42,22 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    public void Puase()
+    {
+        paused = !paused;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        if (paused)
+        {
+            Resumemenu.SetActive(false);
+            paussemenu.SetActive(true);
+        }else{
+            Resumemenu.SetActive(true);
+            paussemenu.SetActive(false);
+        }
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f);
 
         speeduptimer -= Time.deltaTime;
@@ -60,18 +76,20 @@ public class PlayerController : MonoBehaviour
 
         }
 
+
+        gtm.ispaused(paused);
         // Debug.Log(IsGrounded());
 
         // if (tilemap.ContainsTile(tilemap.name("Player")))
         // {
 
         //  }
-        if (!gtm.gettimerended())
+        if (!gtm.gettimerended() && !paused)
         {
 			
             if (speeduptimer < 0){
                     transform.position += movement * Time.deltaTime * (moveSpeed *speedupfactor);
-            Debug.Log("sped up");
+            //Debug.Log("sped up");
 
         
             }
