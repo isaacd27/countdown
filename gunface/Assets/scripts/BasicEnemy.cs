@@ -68,7 +68,9 @@ public class BasicEnemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Projectile"))
         {
             hp -= 1;
-            
+            Debug.Log("enemy Hit");
+
+
             if (hp <= 0)
             {
                 //temp = GameObject.Instantiate(coinprefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);

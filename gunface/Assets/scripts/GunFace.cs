@@ -307,6 +307,7 @@ void Awake()
         {
             if(stakecool <= 0)
             {
+                stakecool = 0.5f;
                 anim.SetBool(attack,true);
                 GameObject temp = Instantiate(staPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
 
@@ -314,7 +315,6 @@ void Awake()
                 temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
                     temp.GetComponent<Projectile>().setDirection(d);
-                stakecool = 0.5f;
             }
 
         }
@@ -326,14 +326,14 @@ void Awake()
                 {
                     rifleCool = 0.5f;
 
-                     GameObject temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
+                    rifleAmmo -= 1;
+
+                    GameObject temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
 
                     temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
                     // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
                     temp.GetComponent<Projectile>().setDirection(d);
-
-                    rifleAmmo -= 1;
 
                 }
                     // Debug.Log("ran ");

@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
 
 
-        Wspeed = Animator.StringToHash("walkingspeed");
+        //Wspeed = Animator.StringToHash("walkingspeed");
 
        
 
@@ -46,13 +46,15 @@ public class PlayerController : MonoBehaviour
 
         speeduptimer -= Time.deltaTime;
 
-        if(movement != Vector3.zero)
+        if (movement != Vector3.zero)
         {
-            anim.SetInteger(Wspeed,1);
+            //anim.SetInteger(Wspeed, 1);
+            anim.speed = 1;
         }
         else
         {
-            anim.SetInteger(Wspeed,0);
+            //anim.SetInteger(Wspeed, 0);
+            anim.speed = 0;
 
         }
 
