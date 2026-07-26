@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
 
     int Wspeed;
 
+    bool paused;
+
+    public GameObject Pausemenu,ResumeMebu;
+
  
     // Start is called before the first frame update
      void Awake()
@@ -49,11 +53,27 @@ public class PlayerController : MonoBehaviour
         if(movement != Vector3.zero)
         {
         anim.SetInteger(Wspeed,1);
+        anim.SetFloat(Wspeed,1);
         }
         else
         {
             anim.SetInteger(Wspeed,0);
+            anim.SetFloat(Wspeed,0);
 
+        }
+
+        gtm.ispaused(paused);
+
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            if (paused){
+                ResumeMebu.SetActive(true);
+                Pausemenu.SetActive(false);
+            }
+            else
+            {
+                ResumeMebu.SetActive(false);
+                Pausemenu.SetActive(true);
+            }
         }
 
         // Debug.Log(IsGrounded());
@@ -63,14 +83,14 @@ public class PlayerController : MonoBehaviour
 
         //  }
 
-        if (!gtm.gettimerended())
+        if (!gtm.gettimerended() && !paused)
         {
-            if (speeduptimer < 0)
-        {
+            if (speeduptimer > 0){
                     transform.position += movement * Time.deltaTime * (moveSpeed *speedupfactor);
+            Debug.Log("sped up");
 
-        }
-            else
+        
+            }else
             {
             transform.position += movement * Time.deltaTime * moveSpeed;
 
@@ -79,6 +99,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+
+
 
 
     
