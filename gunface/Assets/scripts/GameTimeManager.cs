@@ -12,6 +12,7 @@ public class GameTimeManager : MonoBehaviour
     public float timerDecreaseRate = 1;
     public TMP_Text TimerText;
     bool paused;// Start is called before the first frame 
+    public GameObject endmenu;
     
     public float gettimertime()
     {
@@ -35,7 +36,7 @@ public class GameTimeManager : MonoBehaviour
     }
     void Start()
     {
-        
+        endmenu.SetActive(false);
     }
 
     // Update is called once per frame
@@ -62,6 +63,13 @@ public class GameTimeManager : MonoBehaviour
             timerend = true;
         }else{
             timerend = false;
+        }
+
+
+        if (timerend)
+        {
+            paused = true;
+            endmenu.SetActive(true);
         }
     }
 }

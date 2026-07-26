@@ -1861,8 +1861,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 300000
-  timerDecreaseRate: 0
+  timerDecreaseRate: 1
   TimerText: {fileID: 100103711}
+  endmenu: {fileID: 1100465225}
 --- !u!4 &438027302
 Transform:
   m_ObjectHideFlags: 0
